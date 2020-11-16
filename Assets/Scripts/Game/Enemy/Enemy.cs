@@ -10,12 +10,13 @@ public class Enemy : MonoBehaviour
     public bool ToggleMoving = true;
     public float chasingInterval = 2f;
     public float chasingDistance = 15f;
-    public int health = 20;
+    public int health = 15;
     public int damage = 5;
     public float knockbackForce = 20f;
     protected PlayerBehavior player;
     protected UnityEngine.AI.NavMeshAgent agent;
-    public bool Agent { get { return agent; }}
+    public UnityEngine.AI.NavMeshAgent Agent { get { return agent; }}
+    public PlayerBehavior Player { get { return player; }}
     protected float chasingTimer;
     protected bool reachedDestination = false;
     protected Vector3 randomDestination;
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
         //Debug.Log("player: " + player.name);
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         //if (ToggleChasing && ToggleMoving) {
-        agent.SetDestination(player.transform.position);
+        //agent.SetDestination(player.transform.position);
         //}
         /*
         else if (ToggleMoving) {
@@ -36,11 +37,23 @@ public class Enemy : MonoBehaviour
             reachedDestination = false;
         }*/
     }
+    
+    //not working because it's protected maybe
+    protected virtual void OnEnable() {/*
+        Debug.Log("enabled is called");
+        agent.enabled = true;
+        if (agent.enabled) {
+            Debug.Log("agent is enabled"); //this not getting called.
+        }
+        agent.SetDestination(player.transform.position);
+        */
+    }
 
     // Update is called once per frame
     protected virtual void Update()
     {
         if (ToggleMoving) {
+            //Debug.Log("moving");
             float distance = Vector3.Distance(transform.position, player.transform.position);
         /*
             float randomDistance = Vector3.Distance(transform.position, randomDestination);

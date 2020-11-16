@@ -17,18 +17,24 @@ public class ShootingEnemy : Enemy
         //agent = GetComponent<NavMeshAgent>();
         shootingTimer = Random.Range(0, shootingInterval); //so that all enemies won't shoot at same time in the beginning
     }
+
+    protected override void OnEnable() {
+        base.OnEnable();
+        shootingTimer = Random.Range(0, shootingInterval);
+    }
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
         if (ToggleShooting) {
+            Debug.Log("shooting");
         shootingTimer -= Time.deltaTime;
         if (shootingTimer <= 0 && Vector3.Distance(transform.position, player.transform.position) <= shootingDistance) {
             shootingTimer = shootingInterval;
-            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false);
+            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, 5);
             bullet.transform.position = transform.position;
             bullet.transform.forward = (player.transform.position - transform.position).normalized;
-            agent.SetDestination(player.transform.position);
+            //agent.SetDestination(player.transform.position);
         }
         }
     }

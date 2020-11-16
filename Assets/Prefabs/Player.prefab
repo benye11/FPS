@@ -501,12 +501,12 @@ MonoBehaviour:
   jumpHeight: 2
   groundDistance: 0.4
   gravity: -9.8
-  speed: 12
+  speed: 6
   controller: {fileID: 4132790989873072169}
   groundCheck: {fileID: 4132790989283596053}
   groundMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 256
 --- !u!114 &4132790989873072175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +521,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 4132790990196955912}
   gun: {fileID: 4132790989488417466}
-  initialHealth: 100
-  initialAmmo: 12
+  GameOverPanel: {fileID: 0}
+  initialHealth: 30
+  initialAmmo: 24
   health: 100
   hurtDuration: 0.5
   knockbackForce: 100
@@ -538,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dbe9ab54a33a49c08b8c16873bdb602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deceleration: 5
+  deceleration: 3
   mass: 3
 --- !u!54 &6798268597452863577
 Rigidbody:

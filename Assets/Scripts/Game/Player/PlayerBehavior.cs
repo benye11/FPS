@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -10,24 +12,30 @@ public class PlayerBehavior : MonoBehaviour
     public Camera playerCamera;
     [Header("Gameplay")]
     public GameObject gun;
-    public int initialHealth = 100;
+    public GameObject GameOverPanel;
+    public int initialHealth = 30;
     public int initialAmmo = 12;
     public int health = 100;
     public int Health { get { return health; }}
+    private Text GameOverText;
     private int ammo;
     public int Ammo { get { return ammo; }} //properties are open and close braces. behind the scenes, they have getter and setters.
     //this allows us to not tweak the value on accident from IDE but allow classes to attach it.
     // Start is called before the first frame update
     public float hurtDuration = 0.5f;
     public float knockbackForce = 50f;
+    private int killcount;
     private bool invulnerable;
     private bool killed = false;
     public bool Killed { get { return killed; }}
     void Start()
     {
+        killed = false;
+        killcount = 0;
         invulnerable = false;
         health = initialHealth;
         ammo = initialAmmo;
+        GameOverText = GameOverPanel.transform.GetChild(0).GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -40,13 +48,17 @@ public class PlayerBehavior : MonoBehaviour
             //good developer practice utilizes object pooling
             //pooling manager will preload a certain amount of objects which will be made inactive.
             //instead of instantiating, we will get bullets from the pool and activate it.
-            GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true);
+            GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true, 5);
             //bulletObject.transform.Rotate(90, 0, 0);
             //ObjectPoolingManager.Instance.GetBullet(); //since it's a static, this will be okay without reference
             //bulletObject.transform.rotation = playerCamera.transform.rotation;
             bulletObject.transform.position = playerCamera.transform.position + playerCamera.transform.forward;
             bulletObject.transform.forward = playerCamera.transform.forward;
             }
+        }
+
+        if (killed && Input.GetKeyDown("y")) {
+            SceneManager.LoadScene("Menu");
         }
     }
 
@@ -103,7 +115,7 @@ public class PlayerBehavior : MonoBehaviour
         }
 
         if (health <= 0) {
-            
+            OnKill();
         }
     }
 
@@ -114,6 +126,9 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void OnKill() {
-        
+        gameObject.SetActive(false);
+        GameOverPanel.SetActive(true);
+        GameOverText.text = "Game Over! You died.\n" + "Enemies Killed: " + EnemySpawner.Instance.KillCount + "\nPress 'y' to restart";
+        killed = true;
     }
 }

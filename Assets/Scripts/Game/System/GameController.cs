@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public Text healthText;
     public Text ammoText;
     public Text enemyText;
+    public Text EnemiesKilledText;
     private int enemyCount = 0;
     // Start is called before the first frame update
     void Awake()
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
         healthText.text = "Health: " + player.Health;
         ammoText.text = "Ammo: " + player.Ammo;
         enemyCount = EnemySpawner.Instance.GetSpawnedEnemyCount();
+        EnemiesKilledText.text = "Enemies Killed: " + EnemySpawner.Instance.KillCount;
         if (enemyCount == 0) {
             enemyText.text = "No enemies";
         }

@@ -15,6 +15,8 @@ public class EnemySpawner : MonoBehaviour
     private int numberOfSpawnPositions;
     private float timer;
     private int currentSpawnedEnemyCount = 0;
+    private int killCount = 0;
+    public int KillCount { get { return killCount; }}
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
         timer = spawnTimer;
         numberOfSpawnPositions = spawnPositions.GetComponentsInChildren<Transform>().Length;
         currentSpawnedEnemyCount = 0;
+        killCount = 0;
     }
 
     // Update is called once per frame
@@ -42,5 +45,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void SubtractEnemyCount() {
         currentSpawnedEnemyCount--;
+        killCount += 1;
     }
 }

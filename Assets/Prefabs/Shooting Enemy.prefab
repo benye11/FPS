@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c8b423fd36a4e4f98063b115f97156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToggleShooting: 0
+  ToggleShooting: 1
   ToggleChasing: 1
   ToggleMoving: 1
   chasingInterval: 2

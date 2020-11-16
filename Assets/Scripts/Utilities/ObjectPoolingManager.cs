@@ -31,10 +31,12 @@ public class ObjectPoolingManager : MonoBehaviour
         ammoCratePositionQueue = new Queue<Vector3>();
         enemyPositionQueue = new Queue<Vector3>();
         foreach (Transform ammoSpawn in ammoSpawnPositions) {
-            ammoCratePositionQueue.Enqueue(ammoSpawn.position);
+            ammoCratePositionQueue.Enqueue(new Vector3(ammoSpawn.position.x, Terrain.activeTerrain.SampleHeight(ammoSpawn.position), ammoSpawn.position.z));
+            //ammoCratePositionQueue.Enqueue(ammoSpawn.position);
         }
         foreach (Transform enemySpawn in enemySpawnPositions) {
-            enemyPositionQueue.Enqueue(enemySpawn.position);
+            enemyPositionQueue.Enqueue(new Vector3(enemySpawn.position.x, Terrain.activeTerrain.SampleHeight(enemySpawn.position), enemySpawn.position.z));
+            //enemyPositionQueue.Enqueue(enemySpawn.position);
         }
         for (int i = 0; i < bulletAmount; i++) {
             GameObject bulletObject = Instantiate(bulletPrefab);
@@ -57,17 +59,19 @@ public class ObjectPoolingManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet(bool shotByPlayer) {
+    public GameObject GetBullet(bool shotByPlayer, int damage = 5) {
         //Debug.Log("Grabbing a bullet");
         foreach (GameObject bullet in bullets) {
             if (!bullet.activeInHierarchy) {
                 bullet.SetActive(true);
+                bullet.GetComponent<BulletBehavior>().damage = damage;
                 bullet.GetComponent<BulletBehavior>().ShotByPlayer = shotByPlayer;
                 return bullet;
             }
         }
         GameObject bulletObject = Instantiate(bulletPrefab);
         bulletObject.transform.SetParent(transform);
+        bulletObject.GetComponent<BulletBehavior>().damage = damage;
         bulletObject.GetComponent<BulletBehavior>().ShotByPlayer = shotByPlayer;
         bullets.Add(bulletObject);
         return bulletObject;
@@ -94,17 +98,19 @@ public class ObjectPoolingManager : MonoBehaviour
         foreach (GameObject shootingEnemy in shootingEnemies) {
             if (!shootingEnemy.activeInHierarchy) {
                 shootingEnemy.SetActive(true);
-                shootingEnemy.transform.position = enemyPositionQueue.Dequeue();
-                enemyPositionQueue.Enqueue(shootingEnemy.transform.position);
+                shootingEnemy.transform.position = enemyPositionQueue.Dequeue(); //this needs to come first
                 shootingEnemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
+                enemyPositionQueue.Enqueue(shootingEnemy.transform.position);
+                //shootingEnemy.GetComponent<ShootingEnemy>().Agent.SetDestination(shootingEnemy.GetComponent<ShootingEnemy>().Player.transform.position);
                 return shootingEnemy;
             }
         }
         GameObject shootingEnemyObject = Instantiate(shootingEnemyPrefab);
-        shootingEnemyObject.transform.SetParent(transform.Find("enemies"));
         shootingEnemyObject.transform.position = enemyPositionQueue.Dequeue();
-        enemyPositionQueue.Enqueue(shootingEnemyObject.transform.position);
         shootingEnemyObject.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
+        shootingEnemyObject.transform.SetParent(transform.Find("enemies"));
+        enemyPositionQueue.Enqueue(shootingEnemyObject.transform.position);
+        //shootingEnemyObject.GetComponent<ShootingEnemy>().Agent.SetDestination(shootingEnemyObject.GetComponent<ShootingEnemy>().Player.transform.position);
         shootingEnemies.Add(shootingEnemyObject);
         return shootingEnemyObject;
     }
