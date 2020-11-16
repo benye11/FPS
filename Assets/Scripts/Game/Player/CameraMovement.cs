@@ -10,9 +10,11 @@ public class CameraMovement : MonoBehaviour
     public Transform playerBody;
     private float xRotation = 0f;
     private float distance;
+    private PlayerBehavior disabled;
     // Start is called before the first frame update
     void Start()
     {
+        disabled = GetComponent<PlayerBehavior>();
         Cursor.lockState = CursorLockMode.Locked;
         //camera.transform.localRotation = Quaternion.Euler(xRotation, 0f , 0f);
         //gun.transform.localRotation = Quaternion.Euler(xRotation, 0f , 0f);
@@ -23,6 +25,7 @@ public class CameraMovement : MonoBehaviour
     //for example, 30 fps = 30 frames per second means 30 updates per second.
     void Update()
     {
+        if (!disabled.Killed) {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
         xRotation -= mouseY;
@@ -32,5 +35,6 @@ public class CameraMovement : MonoBehaviour
         //gun.transform.localPosition = Quaternion.Euler(xRotation, 0f , 0f) * transform.localPosition * distance;
         //gun.transform.RotateAround(transform.localPosition, Vector3.up * xRotation, 1f);
         playerBody.Rotate(Vector3.up * mouseX);
+        }
     }
 }

@@ -27,13 +27,14 @@ public class ShootingEnemy : Enemy
     {
         base.Update();
         if (ToggleShooting) {
-            Debug.Log("shooting");
+            //Debug.Log("shooting");
         shootingTimer -= Time.deltaTime;
         if (shootingTimer <= 0 && Vector3.Distance(transform.position, player.transform.position) <= shootingDistance) {
             shootingTimer = shootingInterval;
             GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, 5);
             bullet.transform.position = transform.position;
             bullet.transform.forward = (player.transform.position - transform.position).normalized;
+            Debug.Log("shot bullet at player");
             //agent.SetDestination(player.transform.position);
         }
         }

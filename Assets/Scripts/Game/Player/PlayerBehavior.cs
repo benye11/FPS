@@ -41,7 +41,7 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (!killed && Input.GetMouseButtonDown(0)) {
             if (ammo > 0) {
                 ammo--;
             //instantiation takes some time for unity to fetch object and create.
@@ -57,7 +57,7 @@ public class PlayerBehavior : MonoBehaviour
             }
         }
 
-        if (killed && Input.GetKeyDown("y")) {
+        if (killed && Input.GetKeyDown("space")) {
             SceneManager.LoadScene("Menu");
         }
     }
@@ -126,9 +126,10 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     private void OnKill() {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         GameOverPanel.SetActive(true);
-        GameOverText.text = "Game Over! You died.\n" + "Enemies Killed: " + EnemySpawner.Instance.KillCount + "\nPress 'y' to restart";
+        GameOverText.text = "Game Over! You died.\n" + "Enemies Killed: " + EnemySpawner.Instance.KillCount + "\nPress 'space' to restart";
+        //GetComponent<Rigidbody>().enabled = false;
         killed = true;
     }
 }

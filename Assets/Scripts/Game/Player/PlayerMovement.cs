@@ -13,10 +13,15 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     private Vector3 velocity;
+    private PlayerBehavior disabled;
 
+    void Start() {
+        disabled = GetComponent<PlayerBehavior>();
+    }
     // Update is called once per frame
     void Update()
     {
+        if (!disabled.Killed) {
         //this creates a sphere of radius groundDistance. if it collides with anything in groundMask, it will return true.
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -34,5 +39,6 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += (gravity * Time.deltaTime*2f);
         //Debug.Log("velocity of y: " + velocity.y.ToString("R"));
         controller.Move(velocity * Time.deltaTime);
+        }
     }
 }

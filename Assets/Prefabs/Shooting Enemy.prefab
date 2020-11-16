@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 697655382}
   - component: {fileID: 697655379}
   - component: {fileID: 697655383}
+  - component: {fileID: 5611823676472469432}
   m_Layer: 0
   m_Name: Shooting Enemy
   m_TagString: Untagged
@@ -293,12 +294,12 @@ MonoBehaviour:
   ToggleChasing: 1
   ToggleMoving: 1
   chasingInterval: 2
-  chasingDistance: 15
+  chasingDistance: 40
   health: 20
   damage: 5
   knockbackForce: 20
   shootingInterval: 4
-  shootingDistance: 10
+  shootingDistance: 40
 --- !u!54 &697655378
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -369,6 +370,20 @@ NavMeshAgent:
   m_BaseOffset: 0.7
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &5611823676472469432
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793083020378860537}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2793083020409964959
 GameObject:
   m_ObjectHideFlags: 0

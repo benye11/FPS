@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.75
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -658,10 +658,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 697655383, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2793083020378860536, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 165.65
@@ -713,14 +709,6 @@ PrefabInstance:
     - target: {fileID: 2793083020378860537, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2793083020378860541, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
-      propertyPath: shootingDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2793083020378860541, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
-      propertyPath: chasingDistance
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c9b7f645041a46ec89c01d2cb9d8f7d, type: 3}
@@ -2194,7 +2182,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4132790989873072175, guid: 62da51031798643579fc4f9e8a647395, type: 3}
   m_PrefabInstance: {fileID: 4132790990588540539}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1237256528}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 223e5ef9be86343d1abd38e6fb715a6c, type: 3}
@@ -3790,6 +3778,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf68be3621a129c48b56c6ffde6f3f7f, type: 3}
+--- !u!1 &1237256528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4132790989873072171, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+  m_PrefabInstance: {fileID: 4132790990588540539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1237256529
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237256528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1268668623
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5667,6 +5674,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 311084531}
     m_Modifications:
+    - target: {fileID: 1443477206360311371, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132790989488417465, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132790989488417465, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132790989488417465, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.56
+      objectReference: {fileID: 0}
     - target: {fileID: 4132790989873072170, guid: 62da51031798643579fc4f9e8a647395, type: 3}
       propertyPath: m_LocalPosition.x
       value: 62.56
@@ -5719,6 +5742,10 @@ PrefabInstance:
       propertyPath: GameOverPanel
       value: 
       objectReference: {fileID: 520506478}
+    - target: {fileID: 4132790990196955919, guid: 62da51031798643579fc4f9e8a647395, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62da51031798643579fc4f9e8a647395, type: 3}
 --- !u!1001 &4658072755871851555
