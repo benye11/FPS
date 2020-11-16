@@ -237,6 +237,10 @@ GameObject:
   - component: {fileID: 2793083020378860536}
   - component: {fileID: 2793083020378860539}
   - component: {fileID: 2793083020378860541}
+  - component: {fileID: 697655378}
+  - component: {fileID: 697655382}
+  - component: {fileID: 697655379}
+  - component: {fileID: 697655383}
   m_Layer: 0
   m_Name: Shooting Enemy
   m_TagString: Untagged
@@ -285,8 +289,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c8b423fd36a4e4f98063b115f97156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ToggleShooting: 0
+  ToggleChasing: 1
+  ToggleMoving: 1
+  chasingInterval: 2
+  chasingDistance: 15
+  health: 20
+  damage: 5
+  knockbackForce: 20
   shootingInterval: 4
   shootingDistance: 10
+--- !u!54 &697655378
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793083020378860537}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!143 &697655382
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793083020378860537}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &697655379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793083020378860537}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dbe9ab54a33a49c08b8c16873bdb602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: 5
+  mass: 3
+--- !u!195 &697655383
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793083020378860537}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0.7
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2793083020409964959
 GameObject:
   m_ObjectHideFlags: 0

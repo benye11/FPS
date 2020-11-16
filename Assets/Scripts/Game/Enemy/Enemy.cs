@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public float knockbackForce = 20f;
     protected PlayerBehavior player;
     protected UnityEngine.AI.NavMeshAgent agent;
+    public bool Agent { get { return agent; }}
     protected float chasingTimer;
     protected bool reachedDestination = false;
     protected Vector3 randomDestination;
@@ -115,5 +116,9 @@ public class Enemy : MonoBehaviour
     //protected means it can only be used by classes that extend this class. virtual means we can override it
     protected virtual void OnKill() {
 
+    }
+
+    public UnityEngine.AI.NavMeshAgent GetAgent() {
+        return agent;
     }
 }

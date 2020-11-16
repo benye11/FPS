@@ -39,5 +39,7 @@ public class ShootingEnemy : Enemy
         agent.enabled = false;
         this.enabled = false; //shooting script disabled
         transform.localEulerAngles = new Vector3(10, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        EnemySpawner.Instance.SubtractEnemyCount();
+        gameObject.SetActive(false);
     }
 }

@@ -80,7 +80,9 @@ public class PlayerBehavior : MonoBehaviour
         else if (otherCollider.GetComponent<AmmoCrate>() != null) {
             AmmoCrate ammoCrate = otherCollider.GetComponent<AmmoCrate>();
             ammo += ammoCrate.ammo;
-            Destroy(ammoCrate.gameObject);
+            //Destroy(ammoCrate.gameObject);
+            AmmoCrateSpawner.Instance.SubtractAmmoCrate();
+            ammoCrate.gameObject.SetActive(false);
             //ammoCrate.gameObject.SetActive(false); //implement this
         }
         else if (otherCollider.GetComponent<Enemy>() != null) {
