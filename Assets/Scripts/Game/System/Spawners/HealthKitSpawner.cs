@@ -9,7 +9,7 @@ private static HealthKitSpawner instance;
     [Header("References")]
     public GameObject spawnPositions;
     [Header("Attributes")]
-    public float spawnTimer = 60f;
+    public float spawnTimer = 40f;
     [Tooltip("Game won't generate more than number of available spawn positions")]
     public float MaxSpawnedHealthKits = 3;
     private int numberOfSpawnPositions;

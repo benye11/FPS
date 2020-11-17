@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrapper: {fileID: 681983731580765867}
-  rotationSpeed: 120
+  rotationSpeed: 60
 --- !u!54 &681983731279949174
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Attributes")]
     public float spawnTimer = 20f;
     [Tooltip("Game won't generate more than number of available spawn positions")]
-    public float MaxSpawnedEnemies = 3;
+    public float MaxSpawnedEnemies = 8;
     private int numberOfSpawnPositions;
     private float timer;
     private int currentSpawnedEnemyCount = 0;

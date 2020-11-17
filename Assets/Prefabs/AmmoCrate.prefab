@@ -986,5 +986,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrapper: {fileID: 680603252233140996}
-  rotationSpeed: 120
-  ammo: 12
+  rotationSpeed: 60
+  ammo: 24

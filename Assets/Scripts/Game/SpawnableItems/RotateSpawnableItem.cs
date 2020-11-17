@@ -6,7 +6,7 @@ public class RotateSpawnableItem : MonoBehaviour
 {
     [Header("Visuals")]
     public GameObject wrapper;
-    public float rotationSpeed = 120f;
+    public float rotationSpeed = 60f;
 
     // Update is called once per frame
     void Update()

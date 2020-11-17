@@ -503,8 +503,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrapper: {fileID: 0}
-  rotationSpeed: 120
-  health: 10
+  rotationSpeed: 60
+  health: 20
 --- !u!1 &4512838121127900027
 GameObject:
   m_ObjectHideFlags: 0

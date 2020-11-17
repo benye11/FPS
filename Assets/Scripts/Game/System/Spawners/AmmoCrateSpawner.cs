@@ -11,7 +11,7 @@ public class AmmoCrateSpawner : MonoBehaviour
     [Header("Attributes")]
     public float spawnTimer = 20f;
     [Tooltip("Game won't generate more than number of available spawn positions")]
-    public float MaxSpawnedAmmoCrates = 3;
+    public float MaxSpawnedAmmoCrates = 4;
     private int numberOfSpawnPositions;
     private float timer;
     private int currentSpawnedAmmoCrateCount = 0;

@@ -17,7 +17,7 @@ public class PlayerBehavior : MonoBehaviour
     public GameObject GameOverPanel;
     public int initialHealth = 30;
     public int initialAmmo = 12;
-    public int health = 50;
+    private int health = 50;
     private Text GameOverText;
     private int[] ammoArray;
     private float[] shootTimerArray;

@@ -5,5 +5,5 @@ using UnityEngine;
 public class AmmoCrate : RotateSpawnableItem
 {
     [Header("Attributes")]
-    public int ammo = 12;
+    public int ammo = 24;
 }

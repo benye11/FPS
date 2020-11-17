@@ -294,13 +294,14 @@ MonoBehaviour:
   ToggleChasing: 1
   ToggleMoving: 1
   chasingInterval: 2
-  chasingDistance: 40
+  chasingDistance: 50
   health: 20
   damage: 5
   knockbackForce: 20
   shootingInterval: 4
   shootingDistance: 40
   RagdollDuration: 5
+  bulletSpeed: 25
 --- !u!54 &697655378
 Rigidbody:
   m_ObjectHideFlags: 0
