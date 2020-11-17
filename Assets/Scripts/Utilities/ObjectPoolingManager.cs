@@ -10,17 +10,22 @@ public class ObjectPoolingManager : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject shootingEnemyPrefab;
     public GameObject ammoCratePrefab;
+    public GameObject healthKitPrefab;
     public Transform enemySpawnPositions;
-    public Transform ammoSpawnPositions;
-    [Header("Attributes")]
-    public int bulletAmount = 20;
-    public int shootingEnemyAmount = 5;
+    public Transform ammoCrateSpawnPositions;
+    public Transform healthKitSpawnPositions;
+    [Header("Number of Pooled Objects")]
+    public int bulletAmount = 30;
+    public int shootingEnemyAmount = 10;
     public int ammoCrateAmount = 5;
+    public int healthKitAmount = 3;
     private List<GameObject> bullets;
     private List<GameObject> shootingEnemies;
     private List<GameObject> ammoCrates;
+    private List<GameObject> healthKits;
     private Queue<Vector3> ammoCratePositionQueue;
     private Queue<Vector3> enemyPositionQueue;
+    private Queue<Vector3> healthKitPositionQueue;
     // Start is called before the first frame update
     void Awake()
     {
@@ -28,11 +33,17 @@ public class ObjectPoolingManager : MonoBehaviour
         bullets = new List<GameObject>(bulletAmount);
         shootingEnemies = new List<GameObject>(shootingEnemyAmount);
         ammoCrates = new List<GameObject>(ammoCrateAmount);
+        healthKits = new List<GameObject>(healthKitAmount);
         ammoCratePositionQueue = new Queue<Vector3>();
+        healthKitPositionQueue = new Queue<Vector3>();
         enemyPositionQueue = new Queue<Vector3>();
-        foreach (Transform ammoSpawn in ammoSpawnPositions) {
-            ammoCratePositionQueue.Enqueue(new Vector3(ammoSpawn.position.x, Terrain.activeTerrain.SampleHeight(ammoSpawn.position), ammoSpawn.position.z));
+        foreach (Transform ammoCrateSpawn in ammoCrateSpawnPositions) {
+            ammoCratePositionQueue.Enqueue(new Vector3(ammoCrateSpawn.position.x, Terrain.activeTerrain.SampleHeight(ammoCrateSpawn.position), ammoCrateSpawn.position.z));
             //ammoCratePositionQueue.Enqueue(ammoSpawn.position);
+        }
+        foreach (Transform healthKitSpawn in healthKitSpawnPositions) {
+            healthKitPositionQueue.Enqueue(new Vector3(healthKitSpawn.position.x, Terrain.activeTerrain.SampleHeight(healthKitSpawn.position), healthKitSpawn.position.z));
+            //healthKitPositionQueue.Enqueue(ammoSpawn.position);
         }
         foreach (Transform enemySpawn in enemySpawnPositions) {
             enemyPositionQueue.Enqueue(new Vector3(enemySpawn.position.x, Terrain.activeTerrain.SampleHeight(enemySpawn.position), enemySpawn.position.z));
@@ -49,6 +60,12 @@ public class ObjectPoolingManager : MonoBehaviour
             ammoCrateObject.transform.SetParent(transform.Find("ammocrates"));
             ammoCrateObject.SetActive(false);
             ammoCrates.Add(ammoCrateObject);
+        }
+        for (int i = 0; i < healthKitAmount; i++) {
+            GameObject healthKitObject = Instantiate(healthKitPrefab);
+            healthKitObject.transform.SetParent(transform.Find("healthkits"));
+            healthKitObject.SetActive(false);
+            healthKits.Add(healthKitObject);
         }
         for (int i = 0; i < shootingEnemyAmount; i++) {
             GameObject shootingEnemyObject = Instantiate(shootingEnemyPrefab);
@@ -92,6 +109,23 @@ public class ObjectPoolingManager : MonoBehaviour
         ammoCratePositionQueue.Enqueue(ammoCrateObject.transform.position);
         ammoCrates.Add(ammoCrateObject);
         return ammoCrateObject;
+    }
+
+    public GameObject GetHealthKit() {
+        foreach (GameObject healthKit in healthKits) {
+            if (!healthKit.activeInHierarchy) {
+                healthKit.SetActive(true);
+                healthKit.transform.position = healthKitPositionQueue.Dequeue();
+                healthKitPositionQueue.Enqueue(healthKit.transform.position);
+                return healthKit;
+            }
+        }
+        GameObject healthKitObject = Instantiate(healthKitPrefab);
+        healthKitObject.transform.SetParent(transform.Find("ammocrates"));
+        healthKitObject.transform.position = healthKitPositionQueue.Dequeue();
+        healthKitPositionQueue.Enqueue(healthKitObject.transform.position);
+        healthKits.Add(healthKitObject);
+        return healthKitObject;
     }
 
     public GameObject GetShootingEnemy() {

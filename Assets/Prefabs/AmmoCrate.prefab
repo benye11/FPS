@@ -742,8 +742,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.339999, y: 1.1420001}
-  m_SizeDelta: {x: 12.2, y: 1.3}
+  m_AnchoredPosition: {x: -5.339999, y: 4.95}
+  m_SizeDelta: {x: 12.2, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &680603253046290447
 MeshRenderer:
@@ -806,7 +806,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ammo
+  m_text: 'Ammo
+
+
+
+
+
+
+
+
+    Ammo
+
+
+
+
+
+
+
+
+    Ammo'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -886,10 +904,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 680603253068502034}
-  - component: {fileID: 1648823834654527368}
   - component: {fileID: 8475965404287108054}
   - component: {fileID: 3681006195254083012}
   - component: {fileID: -4608729554282331962}
+  - component: {fileID: 9221346679941588403}
   m_Layer: 0
   m_Name: AmmoCrate
   m_TagString: Untagged
@@ -913,21 +931,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1648823834654527368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680603253068502029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1910eafa87d44474a50d8175bfc29e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wrapper: {fileID: 680603252233140996}
-  rotationSpeed: 180
-  ammo: 12
 --- !u!65 &8475965404287108054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -970,3 +973,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0.19, z: 0}
+--- !u!114 &9221346679941588403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680603253068502029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c74fafb6390408f923411ddb96b1e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wrapper: {fileID: 680603252233140996}
+  rotationSpeed: 120
+  ammo: 12

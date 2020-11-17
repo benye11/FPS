@@ -8,6 +8,7 @@ public class ShootingEnemy : Enemy
     [Header("Attributes")]
     public float shootingInterval = 4f;
     public float shootingDistance = 3f;
+    public float RagdollDuration = 5f;
     private float shootingTimer;
     // Start is called before the first frame update
     protected override void Start()
@@ -47,6 +48,11 @@ public class ShootingEnemy : Enemy
         this.enabled = false; //shooting script disabled
         transform.localEulerAngles = new Vector3(10, transform.localEulerAngles.y, transform.localEulerAngles.z);
         EnemySpawner.Instance.SubtractEnemyCount();
+        StartCoroutine(RemoveRagdoll());
+    }
+
+    IEnumerator RemoveRagdoll() {
+        yield return new WaitForSeconds(RagdollDuration);
         gameObject.SetActive(false);
     }
 }

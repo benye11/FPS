@@ -88,6 +88,7 @@ public class Enemy : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider otherCollider) {
+        if (!killed) {
         GameObject hazard = null;
         if (otherCollider.GetComponent<BulletBehavior>() != null) {
             BulletBehavior bullet = otherCollider.GetComponent<BulletBehavior>();
@@ -112,6 +113,7 @@ public class Enemy : MonoBehaviour
                 OnKill();
             }
         }
+        }
     }
 
     /*
@@ -133,5 +135,10 @@ public class Enemy : MonoBehaviour
 
     public UnityEngine.AI.NavMeshAgent GetAgent() {
         return agent;
+    }
+
+    //returns true if alive, i.e. killed is false
+    public bool CheckAlive() {
+        return !killed;
     }
 }

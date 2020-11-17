@@ -80,12 +80,11 @@ public class PlayerBehavior : MonoBehaviour
     //onTriggerEnter interacts between a rigidbody and collider trigger.
     //the trigger is the collider (on trigger)
     void OnTriggerEnter(Collider otherCollider) {
-        GameObject hazard = null;
+        if (!killed) {
         if (otherCollider.GetComponent<BulletBehavior>() != null) {
             BulletBehavior bullet = otherCollider.GetComponent<BulletBehavior>();
             if (bullet.ShotByPlayer == false) {
                 health -= bullet.damage;
-                hazard = bullet.gameObject;
                 bullet.gameObject.SetActive(false);
             }
         }
@@ -97,25 +96,34 @@ public class PlayerBehavior : MonoBehaviour
             ammoCrate.gameObject.SetActive(false);
             //ammoCrate.gameObject.SetActive(false); //implement this
         }
+        else if (otherCollider.GetComponent<HealthKit>() != null) {
+            HealthKit healthKit = otherCollider.GetComponent<HealthKit>();
+            health += healthKit.health;
+            HealthKitSpawner.Instance.SubtractHealthKit();
+            healthKit.gameObject.SetActive(false);
+        }
         else if (otherCollider.GetComponent<Enemy>() != null) {
             if (invulnerable == false) {
             Enemy enemy = otherCollider.GetComponent<Enemy>();
-            hazard = enemy.gameObject;
-            health -= enemy.damage;
-            invulnerable = true;
-            StartCoroutine(HurtRoutine());
+            if (enemy.CheckAlive()) {
+                health -= enemy.damage;
+                invulnerable = true;
+                GameObject hazard = enemy.gameObject;
+                Vector3 hurtDirection = (transform.position - hazard.transform.position).normalized;
+                Vector3 knockbackDirection = (hurtDirection + Vector3.up).normalized;
+                //GetComponent<Rigidbody>().AddForce(knockbackDirection * knockbackForce); //since we use CharacterController, we don't have a normal rigidbody
+                GetComponent<ForceReceiver>().AddForce(knockbackDirection, knockbackForce);
+                StartCoroutine(HurtRoutine());
+            }
             }
         }
 
-        if (hazard != null) {
-            Vector3 hurtDirection = (transform.position - hazard.transform.position).normalized;
-            Vector3 knockbackDirection = (hurtDirection + Vector3.up).normalized;
-            //GetComponent<Rigidbody>().AddForce(knockbackDirection * knockbackForce); //since we use CharacterController, we don't have a normal rigidbody
-            GetComponent<ForceReceiver>().AddForce(knockbackDirection, knockbackForce);
-        }
-
         if (health <= 0) {
-            OnKill();
+            if (killed == false) {
+                killed = true;
+                OnKill();
+            }
+        }
         }
     }
 
@@ -130,6 +138,7 @@ public class PlayerBehavior : MonoBehaviour
         GameOverPanel.SetActive(true);
         GameOverText.text = "Game Over! You died.\n" + "Enemies Killed: " + EnemySpawner.Instance.KillCount + "\nPress 'space' to restart";
         //GetComponent<Rigidbody>().enabled = false;
-        killed = true;
+        GetComponent<CameraMovement>().DisableMovement();
+        GetComponent<PlayerMovement>().DisableMovement();
     }
 }

@@ -300,6 +300,7 @@ MonoBehaviour:
   knockbackForce: 20
   shootingInterval: 4
   shootingDistance: 40
+  RagdollDuration: 5
 --- !u!54 &697655378
 Rigidbody:
   m_ObjectHideFlags: 0
