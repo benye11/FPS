@@ -16,10 +16,15 @@ public class GameController : MonoBehaviour
     public Text ammoText;
     public Text enemyText;
     public Text EnemiesKilledText;
+    public Text PistolText;
+    public Text AssaultRifleText;
+    public Text SniperRifleText;
+    private Text previousSelection;
     private int enemyCount = 0;
     // Start is called before the first frame update
     void Awake()
     {
+        previousSelection = PistolText;
         enemyCount = 0;
         instance = this;
     }
@@ -29,7 +34,7 @@ public class GameController : MonoBehaviour
     {
         healthText.text = "Health: " + player.Health;
         ammoText.text = "Ammo: " + player.Ammo;
-        enemyCount = EnemySpawner.Instance.GetSpawnedEnemyCount();
+        enemyCount = EnemySpawner.Instance.SpawnedEnemyCount;
         EnemiesKilledText.text = "Enemies Killed: " + EnemySpawner.Instance.KillCount;
         if (enemyCount == 0) {
             enemyText.text = "No enemies";
@@ -39,6 +44,24 @@ public class GameController : MonoBehaviour
         }
         else {
             enemyText.text = "Enemies: " + enemyCount;
+        }
+    }
+
+    public void UpdateGunTextColor(int selection) {
+        if (selection == 0) {
+            PistolText.color = Color.yellow;
+            previousSelection.color = Color.white;
+            previousSelection = PistolText;
+        }
+        else if (selection == 1) {
+            AssaultRifleText.color = Color.yellow;
+            previousSelection.color = Color.white;
+            previousSelection = AssaultRifleText;
+        }
+        else if (selection == 2) {
+            SniperRifleText.color = Color.yellow;
+            previousSelection.color = Color.white;
+            previousSelection = SniperRifleText;
         }
     }
 }

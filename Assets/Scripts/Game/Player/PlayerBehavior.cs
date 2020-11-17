@@ -11,15 +11,22 @@ public class PlayerBehavior : MonoBehaviour
     [Header("Visuals")]
     public Camera playerCamera;
     [Header("Gameplay")]
-    public GameObject gun;
+    public GameObject pistol;
+    public GameObject assaultRifle;
+    public GameObject sniperRifle;
     public GameObject GameOverPanel;
     public int initialHealth = 30;
     public int initialAmmo = 12;
-    public int health = 100;
-    public int Health { get { return health; }}
+    public int health = 50;
     private Text GameOverText;
-    private int ammo;
-    public int Ammo { get { return ammo; }} //properties are open and close braces. behind the scenes, they have getter and setters.
+    private int[] ammoArray;
+    private float[] shootTimerArray;
+    private float[] shootIntervalArray;
+    private int[] gunDamageArray;
+    private float[] bulletSpeedArray;
+    private bool[] hasWeapon;
+    private int[] ammoCrateDivider;
+    private int gunSelection = 0;
     //this allows us to not tweak the value on accident from IDE but allow classes to attach it.
     // Start is called before the first frame update
     public float hurtDuration = 0.5f;
@@ -27,34 +34,59 @@ public class PlayerBehavior : MonoBehaviour
     private int killcount;
     private bool invulnerable;
     private bool killed = false;
+
     public bool Killed { get { return killed; }}
+    public int Health { get { return health; }}
+    public int Ammo { get { return ammoArray[gunSelection]; }}
     void Start()
     {
+        //start off with a pistol
+        //0 is pistol, 1 is assaultRifle, 2 is sniper
+        ammoArray = new int[] {initialAmmo, 0, 0};
+        shootTimerArray = new float[] {0f, 0f, 0f};
+        shootIntervalArray = new float[] {1f, 0.5f, 2f};
+        bulletSpeedArray = new float[] {30f, 40f, 50f};
+        gunDamageArray = new int[] {5, 10, 30};
+        hasWeapon = new bool[] {true, false, false};
+        ammoCrateDivider = new int[] {1, 2, 4};
         killed = false;
         killcount = 0;
         invulnerable = false;
         health = initialHealth;
-        ammo = initialAmmo;
+        gunSelection = 0;
         GameOverText = GameOverPanel.transform.GetChild(0).GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!killed && Input.GetMouseButtonDown(0)) {
-            if (ammo > 0) {
-                ammo--;
+        if (!killed) {
+        if (Input.GetKeyDown("1")) {
+            SwitchWeapon(0);
+        }
+        else if (Input.GetKeyDown("2")) {
+            SwitchWeapon(1);
+        }
+        else if (Input.GetKeyDown("3")) {
+            SwitchWeapon(2);
+        }
+            shootTimerArray[gunSelection] -= Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && shootTimerArray[gunSelection] <= 0) {
+            if (ammoArray[gunSelection] > 0) {
+                ammoArray[gunSelection]--;
+            shootTimerArray[gunSelection] = shootIntervalArray[gunSelection];
             //instantiation takes some time for unity to fetch object and create.
             //good developer practice utilizes object pooling
             //pooling manager will preload a certain amount of objects which will be made inactive.
             //instead of instantiating, we will get bullets from the pool and activate it.
-            GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true, 5);
+            GameObject bulletObject = ObjectPoolingManager.Instance.GetBullet(true, gunDamageArray[gunSelection], bulletSpeedArray[gunSelection]);
             //bulletObject.transform.Rotate(90, 0, 0);
             //ObjectPoolingManager.Instance.GetBullet(); //since it's a static, this will be okay without reference
             //bulletObject.transform.rotation = playerCamera.transform.rotation;
             bulletObject.transform.position = playerCamera.transform.position + playerCamera.transform.forward;
             bulletObject.transform.forward = playerCamera.transform.forward;
             }
+        }
         }
 
         if (killed && Input.GetKeyDown("space")) {
@@ -90,7 +122,7 @@ public class PlayerBehavior : MonoBehaviour
         }
         else if (otherCollider.GetComponent<AmmoCrate>() != null) {
             AmmoCrate ammoCrate = otherCollider.GetComponent<AmmoCrate>();
-            ammo += ammoCrate.ammo;
+            ammoArray[gunSelection] += (ammoCrate.ammo/ammoCrateDivider[gunSelection]);
             //Destroy(ammoCrate.gameObject);
             AmmoCrateSpawner.Instance.SubtractAmmoCrate();
             ammoCrate.gameObject.SetActive(false);
@@ -101,6 +133,16 @@ public class PlayerBehavior : MonoBehaviour
             health += healthKit.health;
             HealthKitSpawner.Instance.SubtractHealthKit();
             healthKit.gameObject.SetActive(false);
+        }
+        else if (otherCollider.GetComponent<AssaultRifle>() != null) {
+            AddWeapon(1);
+            AssaultRifle assaultRifle = otherCollider.GetComponent<AssaultRifle>();
+            assaultRifle.gameObject.SetActive(false);
+        }
+        else if (otherCollider.GetComponent<SniperRifle>() != null) {
+            AddWeapon(2);
+            SniperRifle sniperRifle = otherCollider.GetComponent<SniperRifle>();
+            sniperRifle.gameObject.SetActive(false);
         }
         else if (otherCollider.GetComponent<Enemy>() != null) {
             if (invulnerable == false) {
@@ -140,5 +182,38 @@ public class PlayerBehavior : MonoBehaviour
         //GetComponent<Rigidbody>().enabled = false;
         GetComponent<CameraMovement>().DisableMovement();
         GetComponent<PlayerMovement>().DisableMovement();
+    }
+
+    private void SwitchWeapon(int selection) {
+        if (selection == 0 && hasWeapon[selection] && selection != gunSelection) {
+            //pistol
+            gunSelection = 0;
+            pistol.SetActive(true);
+            assaultRifle.SetActive(false);
+            sniperRifle.SetActive(false);
+            GameController.Instance.UpdateGunTextColor(0);
+        }
+        else if (selection == 1 && hasWeapon[selection] && selection != gunSelection) {
+            //assaultrifle
+            gunSelection = 1;
+            pistol.SetActive(false);
+            assaultRifle.SetActive(true);
+            sniperRifle.SetActive(false);
+            GameController.Instance.UpdateGunTextColor(1);
+        }
+        else if (selection == 2 && hasWeapon[selection] && selection != gunSelection) {
+            //sniper
+            gunSelection = 2;
+            pistol.SetActive(false);
+            assaultRifle.SetActive(false);
+            sniperRifle.SetActive(true);
+            GameController.Instance.UpdateGunTextColor(2);
+        }
+    }
+
+    private void AddWeapon(int selection) {
+        //make it so the UI appears
+        //allow player to switch to weapon
+        hasWeapon[selection] = true;
     }
 }

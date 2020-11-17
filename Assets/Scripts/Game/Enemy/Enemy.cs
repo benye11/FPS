@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public bool ToggleMoving = true;
     public float chasingInterval = 2f;
     public float chasingDistance = 15f;
-    public int health = 15;
+    public int health = 30;
     public int damage = 5;
     public float knockbackForce = 20f;
     protected PlayerBehavior player;

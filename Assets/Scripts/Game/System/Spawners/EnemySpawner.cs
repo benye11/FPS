@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
     private int currentSpawnedEnemyCount = 0;
     private int killCount = 0;
     public int KillCount { get { return killCount; }}
+    public int SpawnedEnemyCount { get { return currentSpawnedEnemyCount; }}
     // Start is called before the first frame update
     void Awake()
     {

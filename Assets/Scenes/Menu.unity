@@ -396,8 +396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -196}
-  m_SizeDelta: {x: 800, y: 400}
+  m_AnchoredPosition: {x: -68.8, y: -135}
+  m_SizeDelta: {x: 846.35474, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750876701
 MonoBehaviour:
@@ -426,20 +426,16 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 300
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Press ''enter'' to start game.
-
-    WASD to move. left click to shoot.
-
-    Grab
-    ammo and kill spawning enemies.
-
-    Enemies will shoot and ram into you.'
+  m_Text: "\t\t\t\t\t\t\tPress 'enter' to start game.\n1.WASD to move. left click
+    to shoot.\n2. Pick up guns and switch by pressing '1', '2', or '3'\n3. Ammo packs
+    replenish the gun you are holding\n3. Enemies will spawn and shoot and ram into
+    you"
 --- !u!222 &750876702
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -747,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4892578, y: 0.5222084}
   m_AnchorMax: {x: 0.4892578, y: 0.5222084}
-  m_AnchoredPosition: {x: 0, y: -17}
+  m_AnchoredPosition: {x: 0, y: 61}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1860859626

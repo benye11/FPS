@@ -9,6 +9,7 @@ public class ShootingEnemy : Enemy
     public float shootingInterval = 4f;
     public float shootingDistance = 3f;
     public float RagdollDuration = 5f;
+    public float bulletSpeed = 25f;
     private float shootingTimer;
     // Start is called before the first frame update
     protected override void Start()
@@ -32,7 +33,7 @@ public class ShootingEnemy : Enemy
         shootingTimer -= Time.deltaTime;
         if (shootingTimer <= 0 && Vector3.Distance(transform.position, player.transform.position) <= shootingDistance) {
             shootingTimer = shootingInterval;
-            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, 5);
+            GameObject bullet = ObjectPoolingManager.Instance.GetBullet(false, 5, bulletSpeed);
             bullet.transform.position = transform.position;
             bullet.transform.forward = (player.transform.position - transform.position).normalized;
             Debug.Log("shot bullet at player");

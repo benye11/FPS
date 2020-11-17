@@ -76,13 +76,14 @@ public class ObjectPoolingManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBullet(bool shotByPlayer, int damage = 5) {
+    public GameObject GetBullet(bool shotByPlayer, int damage, float bulletSpeed) {
         //Debug.Log("Grabbing a bullet");
         foreach (GameObject bullet in bullets) {
             if (!bullet.activeInHierarchy) {
                 bullet.SetActive(true);
                 bullet.GetComponent<BulletBehavior>().damage = damage;
                 bullet.GetComponent<BulletBehavior>().ShotByPlayer = shotByPlayer;
+                bullet.GetComponent<BulletBehavior>().speed = bulletSpeed;
                 return bullet;
             }
         }
