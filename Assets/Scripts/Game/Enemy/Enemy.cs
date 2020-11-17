@@ -97,6 +97,7 @@ public class Enemy : MonoBehaviour
                 health -= bullet.damage;
                 hazard = bullet.gameObject;
                 bullet.gameObject.SetActive(false);
+                agent.SetDestination(player.transform.position);
             }
         }
         /*

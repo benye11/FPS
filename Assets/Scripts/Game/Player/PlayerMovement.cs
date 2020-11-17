@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public float gravity = -9.8f; //-5f;
     public float speed = 0.5f;
+    public AudioSource jumpSound;
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
         if (isGrounded && Input.GetButtonDown("Jump")) {
             velocity.y = Mathf.Sqrt(jumpHeight * -1f * gravity);
+            jumpSound.Play();
         }
 
         velocity.y += (gravity * Time.deltaTime*2f);

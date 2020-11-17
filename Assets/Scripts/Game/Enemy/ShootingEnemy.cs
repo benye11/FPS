@@ -9,7 +9,7 @@ public class ShootingEnemy : Enemy
     public float shootingInterval = 4f;
     public float shootingDistance = 3f;
     public float RagdollDuration = 5f;
-    public float bulletSpeed = 25f;
+    public float bulletSpeed = 35f;
     public int bulletDamage = 5;
     private float shootingTimer;
     // Start is called before the first frame update

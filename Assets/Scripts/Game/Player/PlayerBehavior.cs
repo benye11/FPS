@@ -15,6 +15,7 @@ public class PlayerBehavior : MonoBehaviour
     public GameObject assaultRifle;
     public GameObject sniperRifle;
     public GameObject GameOverPanel;
+    public AudioSource shootSound;
     public int initialHealth = 30;
     public int initialAmmo = 12;
     private int health = 50;
@@ -44,8 +45,8 @@ public class PlayerBehavior : MonoBehaviour
         //0 is pistol, 1 is assaultRifle, 2 is sniper
         ammoArray = new int[] {initialAmmo, 0, 0};
         shootTimerArray = new float[] {0f, 0f, 0f};
-        shootIntervalArray = new float[] {1f, 0.5f, 2f};
-        bulletSpeedArray = new float[] {30f, 40f, 50f};
+        shootIntervalArray = new float[] {0.5f, 0.25f, 2f};
+        bulletSpeedArray = new float[] {35f, 60f, 90f};
         gunDamageArray = new int[] {5, 10, 30};
         hasWeapon = new bool[] {true, false, false};
         ammoCrateDivider = new int[] {1, 2, 4};
@@ -85,6 +86,7 @@ public class PlayerBehavior : MonoBehaviour
             //bulletObject.transform.rotation = playerCamera.transform.rotation;
             bulletObject.transform.position = playerCamera.transform.position + playerCamera.transform.forward;
             bulletObject.transform.forward = playerCamera.transform.forward;
+            shootSound.Play();
             }
         }
         }
@@ -131,6 +133,9 @@ public class PlayerBehavior : MonoBehaviour
         else if (otherCollider.GetComponent<HealthKit>() != null) {
             HealthKit healthKit = otherCollider.GetComponent<HealthKit>();
             health += healthKit.health;
+            if (health > initialHealth) {
+                health = initialHealth;
+            }
             HealthKitSpawner.Instance.SubtractHealthKit();
             healthKit.gameObject.SetActive(false);
         }
